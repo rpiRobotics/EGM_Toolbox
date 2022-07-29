@@ -4,9 +4,10 @@ setup(
     name='egm_toolbox',
     version='0.0.1',
     description='EGM Tools',
-    py_modules=['rpi_abb_irc5','EGM_toolbox','egm_pb2'],
+    py_modules=['rpi_abb_irc5','EGM_toolbox','egm_pb2','robots_def'],
     install_requires=[
         'bs4',
-        'numpy'
+        'numpy',
+        'general_robotics_toolbox'
     ]
 )

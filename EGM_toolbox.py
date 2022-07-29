@@ -1,10 +1,7 @@
 import numpy as np
 from general_robotics_toolbox import *
-from pandas import read_csv
 import sys
 from robots_def import *
-from lambda_calc import *
-from error_check import *
 import rpi_abb_irc5
 
 
@@ -19,7 +16,9 @@ class EGM_toolbox(object):
         self.idx_delay=int(self.delay/self.ts)
 
     def downsample24ms(self,curve,vd):
-        lam=calc_lam_cs(curve[:,:3])
+        temp=np.diff(curve[:,:3],axis=0)
+        temp=np.linalg.norm(temp,axis=1)
+        lam=np.insert(np.cumsum(temp),0,0)
 
         steps=int((lam[-1]/vd)/self.ts)
         idx=np.linspace(0.,len(curve)-1,num=steps).astype(int)
@@ -209,6 +208,12 @@ class EGM_toolbox(object):
             return timestamp
 
 def main():
+    
+    robot=abb6640(d=50)
+    egm = rpi_abb_irc5.EGM(port=6510)
+    et= EGM_toolbox(egm,robot)
+    et.jog_joint(np.zeros(6))
+
     return
 if __name__ == "__main__":
     main()

@@ -8,6 +8,9 @@ setup(
     install_requires=[
         'bs4',
         'numpy',
-        'general_robotics_toolbox'
+        'general_robotics_toolbox',
+        'protobuf==3.20.0',
+        'requests',
+        'ws4py'
     ]
 )
